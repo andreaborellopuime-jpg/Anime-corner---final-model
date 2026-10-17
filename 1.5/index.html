@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime corner - Recomendaciones</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#e50914" />
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- CDN de Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">🌪️|Anime corner</div>
+    <nav class="nav">
+      <a href="#formulario">Recomendar</a>
+      <a href="#catalogo">Catálogo</a>
+      <span id="user-info" class="user-info"></span>
+      <button type="button" id="btn-logout" class="btn-logout" style="display:none;">Cerrar sesión</button>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- SECCIÓN LOGIN / REGISTRO (solo visitantes) -->
+    <section id="seccion-auth" class="card-form">
+      <h2>Ingresá o registrate</h2>
+      <p class="subtitle">Necesitás una cuenta para recomendar y comentar</p>
+
+      <form id="form-auth">
+        <div class="form-group">
+          <label for="auth-email">Email</label>
+          <input type="email" id="auth-email" placeholder="alumno1@escuela.edu.ar" required>
+        </div>
+        <div class="form-group">
+          <label for="auth-password">Contraseña (mínimo 6 caracteres)</label>
+          <input type="password" id="auth-password" minlength="6" required>
+        </div>
+        <div class="auth-buttons">
+          <button type="submit" class="btn-primary">Iniciar sesión</button>
+          <button type="button" id="btn-registro" class="btn-secondary">Registrarme</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- SECCIÓN FORMULARIO (solo usuarios logueados) -->
+    <section id="formulario" class="card-form" style="display:none;">
+      <h2 id="titulo-form">Recomendá una Serie</h2>
+      <p class="subtitle">Compartí con la comunidad tus animes favoritos</p>
+
+      <form id="form-serie">
+        <input type="hidden" id="serie-id" value="">
+
+        <div class="form-group">
+          <label for="titulo">Título del anime</label>
+          <input type="text" id="titulo" placeholder="Ej: Tokyo Ghoul" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="genero">Género</label>
+            <select id="genero" required>
+              <option value="" disabled selected>Seleccioná...</option>
+              <option value="Ciencia Ficción">Ciencia Ficción</option>
+              <option value="Drama">Drama</option>
+              <option value="Romance">Romance</option>
+              <option value="Comedia">Comedia</option>
+              <option value="Acción">Acción</option>
+              <option value="Terror">Terror</option>
+              <option value="Shonen">Shonen</option>
+              <option value="Shojo">Shojo</option>
+              <option value="Seinen">Seinen</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="puntuacion">Puntuación (1 al 10)</label>
+            <input type="number" id="puntuacion" min="1" max="10" step="0.5" value="8" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="image-file">Portada del anime:</label>
+          <input type="file" id="image-file" accept="image/*" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="resena">¿Por qué lo recomendás? (Reseña breve)</label>
+          <textarea id="resena" rows="3" placeholder="Contanos qué es lo que más te gustó..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary">Publicar Recomendación</button>
+        <button type="button" id="btn-cancelar" class="btn-secondary" style="display:none; margin-top:0.8rem;">Cancelar edición</button>
+      </form>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section id="catalogo" class="catalog-section">
+      <h2>Catálogo de la Comunidad</h2>
+      <div id="grid-series" class="grid-cards"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Proyecto Demo - Escuela Técnica N° 2 | Desarrollo Web</p>
+  </footer>
+
+  <!-- Solo cargamos main2.js: él importa auth.js, series.js y supabaseClient.js -->
+  <script type="module" src="main2.js"></script>
+</body>
+</html>
